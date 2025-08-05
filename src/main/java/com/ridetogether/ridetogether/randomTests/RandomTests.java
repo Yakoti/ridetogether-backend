@@ -1,4 +1,4 @@
-package com.ridetogether.ridetogether;
+package com.ridetogether.ridetogether.randomTests;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
