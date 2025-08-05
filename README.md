@@ -5,6 +5,10 @@ Ride Together - Web Transport Sharing to Office App
 #### Overview
 The transport-sharing to office app is designed to connect drivers and passengers with overlapping schedules and proximity, facilitating efficient carpooling to workplaces. The app leverages a user-friendly interface, real-time matching, and integration with the Google Maps API for route planning. It aims to reduce commuting costs, environmental impact, and traffic congestion by optimizing shared rides.
 
+Basic sketch
+<img width="1204" height="754" alt="image" src="https://github.com/user-attachments/assets/f18db753-0a7e-4b5c-931e-f9d431492532" />
+
+
 #### Core Features and Functionality
 
 1. **User Roles and Profiles**
