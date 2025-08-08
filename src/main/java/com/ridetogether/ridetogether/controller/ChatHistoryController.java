@@ -23,11 +23,14 @@ public class ChatHistoryController {
         List<ChatMessage> messages = chatMessageService.chatHistory(rideId);
         return ResponseEntity.ok(messages);
     }
-    @GetMapping("/rides")
-    public ResponseEntity<List<String>> getAllRideIds() {
-        List<String> ids = chatMessageService.getAllRideIds(); // implement in your service/repo
-        return ResponseEntity.ok(ids);
-    }
+
+//    @GetMapping("/rides")
+//    public ResponseEntity<List<String>> getAllRideIds() {
+//        List<String> ids = chatMessageService.getAllRideIds(); // implement in your service/repo
+//        return ResponseEntity.ok(ids);
+//    }
+//
+
 
 }
 

@@ -26,9 +26,20 @@ public class ChatMessageService {
 
 
     public List<ChatMessage> chatHistory(String rideId) {
-        return chatMessageRepository.findByRideIdOrderBySentDateAsc(rideId);
+        List<ChatMessage> messages = chatMessageRepository.findByRideIdOrderBySentDateAsc(rideId);
 
+        for (ChatMessage message : messages) {
+            if (message.getFileName() != null && message.getFileType() != null) {
+                // If filePath is not set or empty, compute and set it dynamically
+                if (message.getFilePath() == null || message.getFilePath().isEmpty()) {
+                    message.setFilePath("/uploads/" + message.getFileName()); // or generate your path as needed
+                }
+            }
+        }
+
+        return messages;
     }
+
 
     // New method to store file and set path in message
     public ChatMessage saveMessageWithFile(ChatMessage message, byte[] fileBytes) throws IOException {
