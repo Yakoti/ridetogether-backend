@@ -23,6 +23,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
     private List<User> findByRoleAndTimeOverlap(UserRole role, LocalTime startTime, LocalTime endTime) {
         return userRepository.findByRoleAndTimeOverlap(role, startTime, endTime);
     }

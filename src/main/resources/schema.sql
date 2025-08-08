@@ -33,6 +33,23 @@ CREATE TABLE chat_messages (
                                file_path VARCHAR(255)
 );
 
+INSERT INTO chat_messages (
+    sender, sender_name, content, sent_date, ride_id, file_name, file_type, encrypted, file_path
+) VALUES
+      (
+          'user123', 'John Doe', 'Hello there!', '2025-08-05 12:30:00', 'ride456',
+          'file1.txt', 'text/plain', false, '/files/file1.txt'
+      ),
+      (
+          'user456', 'Jane Smith', 'See you soon!', '2025-08-05 12:45:00', 'ride789',
+          NULL, NULL, false, NULL
+      ),
+      (
+          'user789', 'Alice Blue', 'Encrypted message', '2025-08-05 13:00:00', 'ride123',
+          'secret.pdf', 'application/pdf', true, '/files/secret.pdf'
+      );
+
+
 
 -- Common office address
 -- Cherni Vrah Blvd 51, Sofia, Bulgaria
