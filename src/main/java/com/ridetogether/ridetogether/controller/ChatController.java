@@ -39,7 +39,8 @@ public class ChatController {
             chatMessageService.save(message);
         } else {
             byte[] encryptedBytes = java.util.Base64.getDecoder().decode(message.getContent());
-
+            System.out.println("Encrypted bytes length: " + encryptedBytes.length);
+           byte[] decryptedBytes = AESUtil.decryptFileBytes(encryptedBytes);
             if (message.getFileType() != null && message.getFileType().startsWith("image/")) {
                 message.setContent("[image]");
             } else if (message.getFileType() != null && message.getFileType().startsWith("video/")) {
@@ -48,7 +49,7 @@ public class ChatController {
                 message.setContent("[file]");
             }
             message.setEncrypted(false);
-
+            System.out.println("Decrypted bytes length: " + decryptedBytes.length);
             message = chatMessageService.saveMessageWithFile(message, encryptedBytes);
         }
         return message;
