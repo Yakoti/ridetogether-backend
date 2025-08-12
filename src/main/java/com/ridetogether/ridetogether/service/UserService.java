@@ -90,6 +90,7 @@ public class UserService {
         driver.setName(request.getName());
         driver.setEmail(request.getEmail());
         driver.setPassword(passwordEncoder.encode(request.getPassword()));
+        driver.setRole(UserRole.DRIVER);
         driver.setPhone(request.getPhone());
         driver.setHomeAddress(request.getHomeAddress());
         driver.setOfficeAddress(request.getOfficeAddress());
@@ -105,6 +106,7 @@ public class UserService {
         passenger.setName(request.getName());
         passenger.setEmail(request.getEmail());
         passenger.setPassword(passwordEncoder.encode(request.getPassword()));
+        passenger.setRole(UserRole.PASSENGER);
         passenger.setPhone(request.getPhone());
         passenger.setHomeAddress(request.getHomeAddress());
         passenger.setOfficeAddress(request.getOfficeAddress());

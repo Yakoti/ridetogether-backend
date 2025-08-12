@@ -25,8 +25,12 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/chat-history/**").permitAll()
+                        .requestMatchers("/chat/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
                 .addFilterBefore(jwtAuthFilter,
                         org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
                 .build();

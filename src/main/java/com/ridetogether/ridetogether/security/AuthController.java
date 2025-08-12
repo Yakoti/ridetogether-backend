@@ -103,4 +103,25 @@ public class AuthController {
         return "hey acces to auth/ endpoints works";
     }
 
+//    @GetMapping("/login")
+//    public ResponseEntity<?> loginBrowser(
+//            @RequestParam String email,
+//            @RequestParam String password) {
+//        var userOpt = userService.findByEmail(email);
+//        if (userOpt.isEmpty()) {
+//            System.out.println("User not found for email: " + email);
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+//        }
+//
+//        User user = userOpt.get();
+//        boolean matches = passwordEncoder.matches(password, user.getPassword());
+//        System.out.println("Password matches: " + matches);
+//        if (!matches) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+//        }
+//        String token = jwtService.generateToken(user);
+//        return ResponseEntity.ok(token);
+//    }
+
+
 }
