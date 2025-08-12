@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByRole(UserRole role);
@@ -17,4 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByRoleAndTimeOverlap(@Param("role") UserRole role,
                                         @Param("startTime") LocalTime startTime,
                                         @Param("endTime") LocalTime endTime);
+
+
+    Optional<User> findByEmail(String email);
 }

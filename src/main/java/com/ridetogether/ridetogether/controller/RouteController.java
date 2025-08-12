@@ -1,8 +1,9 @@
-package com.ridetogether.ridetogether.routing;
+package com.ridetogether.ridetogether.controller;
 
 import com.ridetogether.ridetogether.dto.RouteDto;
 import com.ridetogether.ridetogether.dto.UserRouteDto;
 import com.ridetogether.ridetogether.model.User;
+import com.ridetogether.ridetogether.service.RouteService;
 import com.ridetogether.ridetogether.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

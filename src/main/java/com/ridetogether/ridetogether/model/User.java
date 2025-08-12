@@ -19,6 +19,8 @@ public abstract class User {
 
     private String name;
     private String email;
+    private String password;
+    private String phone;
     private String homeAddress;
     private String officeAddress;
     private LocalTime preferredArrivalStart;
@@ -28,13 +30,5 @@ public abstract class User {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
-
-//    to be determined
-//    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
-//    private List<RideRequest> sentRequests = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL)
-//    private List<RideRequest> receivedRequests = new ArrayList<>();
 
 }
