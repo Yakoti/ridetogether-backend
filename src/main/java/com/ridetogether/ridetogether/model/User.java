@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalTime;
 
+//TODO: add password, contact info, and so on
+
 @Entity
 @Table(name = "users")
 @Data
