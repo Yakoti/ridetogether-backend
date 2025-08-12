@@ -25,6 +25,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        // Skip JWT checks for auth endpoints
+        return request.getServletPath().startsWith("/auth/");
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
@@ -38,12 +44,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(7);
-        String username = jwtService.extractUsername(token);
+        String email = jwtService.extractEmail(token);
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            // You can load user details from DB if needed
+        //explain
+
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = User.builder()
-                    .username(username)
+                    .username(email)
                     .password("") // No need for password here
                     .authorities(Collections.emptyList())
                     .build();
@@ -57,4 +64,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
+    /*
+        Creating UserDetails + UsernamePasswordAuthenticationToken is just the guard opening
+        the envelope and giving you your official access badge for this visit.
+        Everywhere inside the building (your app)
+        people know who you are and what you can do.
+     */
 }

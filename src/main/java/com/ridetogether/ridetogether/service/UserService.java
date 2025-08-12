@@ -6,6 +6,7 @@ import com.ridetogether.ridetogether.repository.PassengerRepository;
 import com.ridetogether.ridetogether.repository.UserRepository;
 import com.ridetogether.ridetogether.security.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
@@ -14,12 +15,22 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    private DriverRepository driverRepository;
-    @Autowired
-    private PassengerRepository passengerRepository;
+    private final UserRepository userRepository;
+    private final DriverRepository driverRepository;
+    private final PassengerRepository passengerRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(
+            UserRepository userRepository,
+            DriverRepository driverRepository,
+            PassengerRepository passengerRepository,
+            PasswordEncoder passwordEncoder
+    ) {
+        this.userRepository = userRepository;
+        this.driverRepository = driverRepository;
+        this.passengerRepository = passengerRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public Optional<User> findById(long id) {
         return userRepository.findById(id);
@@ -78,7 +89,7 @@ public class UserService {
     private void mapCommonFieldsDriver(Driver driver, RegisterRequest request) {
         driver.setName(request.getName());
         driver.setEmail(request.getEmail());
-        driver.setPassword(request.getPassword());
+        driver.setPassword(passwordEncoder.encode(request.getPassword()));
         driver.setPhone(request.getPhone());
         driver.setHomeAddress(request.getHomeAddress());
         driver.setOfficeAddress(request.getOfficeAddress());
@@ -93,7 +104,7 @@ public class UserService {
     private void mapCommonFieldsPassenger(Passenger passenger, RegisterRequest request) {
         passenger.setName(request.getName());
         passenger.setEmail(request.getEmail());
-        passenger.setPassword(request.getPassword());
+        passenger.setPassword(passwordEncoder.encode(request.getPassword()));
         passenger.setPhone(request.getPhone());
         passenger.setHomeAddress(request.getHomeAddress());
         passenger.setOfficeAddress(request.getOfficeAddress());

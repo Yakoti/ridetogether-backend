@@ -37,7 +37,7 @@ public class AuthController {
         if (userService.findByEmail(request.getEmail()).isPresent()) {
             return ResponseEntity
                     .badRequest()
-                    .body("Account with this email: " + request.getEmail() + " already exists");
+                    .body("EMAIL_INVALID " + "Account with this email: " + request.getEmail() + " already exists");
         }
 
         //2) Handle different invalid inputs
@@ -73,38 +73,34 @@ public class AuthController {
                 }
             }
             return ResponseEntity.badRequest()
-                    .body("VALIDATION_ERROR Invalid input");
+                    .body("VALIDATION_ERROR Invalid register request");
         }
 
         return ResponseEntity.ok(userService.registerNewUser(request));
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-//        // 1) Find user by username
-//        Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
-//        if (userOpt.isEmpty()) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-//        }
-//        // sending 401 instead of 404 is better because the attacker does not know
-//        // if there is such account
-//        // if the username or pass is wrong
-//
-//        User user = userOpt.get();
-//
-//        // 2) Check password matches hashed password stored
-//        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-//        }
-//        //it extracts the salt and cost from the stored hash
-//        //and hashes the raw password the same way to compare.
-//
-//        // 3) Generate JWT token (we’ll implement this soon)
-//        String token = jwtService.generateToken(user.getUsername());
-//
-//        // 4) Return the token to the client
-////        return ResponseEntity.ok(new AuthenticationResponse(token));
-//        return ResponseEntity.ok(token);
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        if (userService.findByEmail(request.getEmail()).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+
+        User user = userService.findByEmail(request.getEmail()).get();
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+
+        String token = jwtService.generateToken(user);
+
+        // 4) Return the token to the client
+// tf is that       return ResponseEntity.ok(new AuthenticationResponse(token));
+        return ResponseEntity.ok(token);
+    }
+
+    @GetMapping("/test")
+    public String testAuth(){
+        return "hey acces to auth/ endpoints works";
+    }
 
 }
