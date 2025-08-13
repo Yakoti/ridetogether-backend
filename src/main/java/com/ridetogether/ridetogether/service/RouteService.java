@@ -1,12 +1,10 @@
-package com.ridetogether.ridetogether.routing;
+package com.ridetogether.ridetogether.service;
 
 import com.ridetogether.ridetogether.dto.RouteDto;
 import com.ridetogether.ridetogether.maps.GoogleMapsApiUrlGenerator;
 import com.ridetogether.ridetogether.maps.GoogleMapsWebUrlGenerator;
 import com.ridetogether.ridetogether.model.User;
 import com.ridetogether.ridetogether.repository.UserRepository;
-import com.ridetogether.ridetogether.service.RouteDataJsonExtractor;
-import com.ridetogether.ridetogether.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

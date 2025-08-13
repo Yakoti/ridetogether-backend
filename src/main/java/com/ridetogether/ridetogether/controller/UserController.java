@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -16,9 +17,9 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable long id) throws InterruptedException {
-        User user = userService.findById(id);
-        if (user == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(user);
+        Optional<User> user = userService.findById(id);
+        if (user.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(user.get());
     }
 
     @GetMapping
