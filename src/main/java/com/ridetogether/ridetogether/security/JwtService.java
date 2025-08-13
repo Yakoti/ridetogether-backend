@@ -16,13 +16,12 @@ public class JwtService {
 
     /*
     In a real app, you should store this key somewhere safe (e.g. config file, environment variable), not hardcoded in the code, because you need the same key to verify tokens later
-
-     Claims = data inside the token.*/
+*/
     public String generateToken(User user) {
         return Jwts.builder()
                 .setIssuer("RideTogetherApp")
                 .setSubject(user.getEmail())
-                .claim("id", String.valueOf(user.getId()))// safer than username/email
+                .claim("id", String.valueOf(user.getId()))
                 .claim("role", user.getRole().name())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7)) // 1 week

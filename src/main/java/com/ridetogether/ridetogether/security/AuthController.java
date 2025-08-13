@@ -5,6 +5,9 @@ import com.ridetogether.ridetogether.model.User;
 import com.ridetogether.ridetogether.repository.UserRepository;
 import com.ridetogether.ridetogether.service.UserService;
 import jakarta.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,12 +15,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+//TODO: logout controller maybe not needed?
 
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+    private final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -33,6 +38,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request, BindingResult result) {
+        logger.info("Register endpoint request: " + request.toString());
+        logger.info("Register endpoint request result: " + result.toString());
+
         // 1) Check if email is taken
         if (userService.findByEmail(request.getEmail()).isPresent()) {
             return ResponseEntity
@@ -75,12 +83,15 @@ public class AuthController {
             return ResponseEntity.badRequest()
                     .body("VALIDATION_ERROR Invalid register request");
         }
-
-        return ResponseEntity.ok(userService.registerNewUser(request));
+        User user = userService.registerNewUser(request);
+        logger.info("User parsed from request: " + user.toString());
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        logger.info("Login endpoint request: " + request.toString());
+
         if (userService.findByEmail(request.getEmail()).isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
@@ -93,8 +104,7 @@ public class AuthController {
 
         String token = jwtService.generateToken(user);
 
-        // 4) Return the token to the client
-// tf is that       return ResponseEntity.ok(new AuthenticationResponse(token));
+        logger.info("Login endpoint generated token: " + token.toString() + " for user: " + user.getName());
         return ResponseEntity.ok(token);
     }
 

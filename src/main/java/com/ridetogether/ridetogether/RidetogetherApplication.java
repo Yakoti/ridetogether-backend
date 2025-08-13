@@ -13,16 +13,4 @@ public class RidetogetherApplication {
 		SpringApplication.run(RidetogetherApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")// all paths
-						.allowedOrigins("*");
-			}
-		};
-	}
-
 }
