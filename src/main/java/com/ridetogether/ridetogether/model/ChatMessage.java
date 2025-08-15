@@ -17,7 +17,7 @@ public class ChatMessage {
     private String sender;//senderId
     private String senderName;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String content;
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -27,7 +27,7 @@ public class ChatMessage {
 
     private String fileName;
     private String fileType;
-    private boolean encrypted;
+    private Boolean encrypted;
     private String filePath;
 
 

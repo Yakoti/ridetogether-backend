@@ -10,8 +10,8 @@ public class WebSocketContainerConfig {
     @Bean
     public ServletServerContainerFactoryBean createWebSocketContainer() {
         ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
-        container.setMaxTextMessageBufferSize(1000 * 1024);    // 512KB or adjust higher
-        container.setMaxBinaryMessageBufferSize(1000 * 1024);
+        container.setMaxTextMessageBufferSize(1500 * 1024);    // 512KB or adjust higher
+        container.setMaxBinaryMessageBufferSize(1500 * 1024);
         return container;
     }
 }
